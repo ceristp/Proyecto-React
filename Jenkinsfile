@@ -1,4 +1,10 @@
 pipeline {
+     environment {
+        DOCKERHUB_USERNAME = 'ceristp00'
+        DOCKERHUB_PASSWORD = credentials('DockerHub_credentials')
+        DOCKERHUB_REPO = 'ceristp00/Proyecto-React'
+    }
+
     agent any
 
     stages {
@@ -41,8 +47,23 @@ pipeline {
                 }
             }
         }
-    }
+    
 
+        stage('Dockerize') {
+            steps {
+                script {
+                    // Build
+                    sh "docker build -t $DOCKERHUB_REPO:latest ."
+
+                    // Log
+                    sh "docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD"
+
+                    // Push
+                    sh "docker push $DOCKERHUB_REPO:latest"
+                }
+            }
+        }
+    }
     post {
         always {
         }
