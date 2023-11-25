@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+        stage('Clonar Repositorio') {
+            steps {
+                // Paso para clonar el repositorio desde GitHub
+                git 'https://github.com/ceristp/Proyecto-React'
+            }
+        }
+
         stage('Checkout') {
             steps {
                 script {
@@ -21,6 +28,7 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
+                    // Paso para ejecutar pruebas automatizadas
                     sh 'npm test'
                 }
             }
