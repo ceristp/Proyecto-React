@@ -14,3 +14,6 @@ creo un archivo dockerfile en directorio
 usar la imagen
 minimizar las capas
 config entorno
+
+dockerizar base de datos
+config dockerfile
